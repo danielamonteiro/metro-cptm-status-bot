@@ -17,9 +17,9 @@ class TreatLinesResponse:
             response_list.append([line_number, line_name, line_status, line_description])
         date = status_response[-1:][0]['DataGeracao']
         response_list.append(date)
-        response_text = self.create_response_all_lines(response_list)
+        #response_text = self.create_response_all_lines(response_list)
 
-        return response_text
+        return response_list
     
     def create_response_all_lines(self, response_list):
         text_response = ""
@@ -29,9 +29,18 @@ class TreatLinesResponse:
             else:
                 text_response = text_response + f"Linha {line[0]} -> {line[1]} - Status: {line[2]} Motivo: {line[3]}\n"
         text_response = text_response + f"Data de atualização: {response_list[-1:][0]}"
-        print(text_response)
         return text_response
 
-lines = TreatLinesResponse()
+    def create_response_one_line(self, response_list, line):
+        text_response = ""
+        for line_response in response_list[:-1]:
+            if line.capitalize() in line_response:
+                if not line_response[3]:
+                    text_response = text_response + f"Linha {line_response[0]} -> {line_response[1]} - Status: {line_response[2]}\n"
+                else:
+                    text_response = text_response + f"Linha {line_response[0]} -> {line_response[1]} - Status: {line_response[2]} Motivo: {line[3]}\n"
+        
+        return text_response
+
 
 
