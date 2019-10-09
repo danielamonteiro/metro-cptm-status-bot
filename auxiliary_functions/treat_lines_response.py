@@ -1,4 +1,6 @@
-from get_lines_status import AllLinesStatus
+from datetime import datetime
+
+from get_data.get_lines_status import AllLinesStatus
 
 class TreatLinesResponse:
     def __init__(self):
@@ -15,32 +17,44 @@ class TreatLinesResponse:
             line_status = line['Status']
             line_description = line['Descricao']
             response_list.append([line_number, line_name, line_status, line_description])
-        date = status_response[-1:][0]['DataGeracao']
+        date = self.format_update_date(status_response[-1:][0]['DataGeracao'])
         response_list.append(date)
-        #response_text = self.create_response_all_lines(response_list)
 
         return response_list
+
     
     def create_response_all_lines(self, response_list):
         text_response = ""
         for line in response_list[:-1]:
             if not line[3]:
-                text_response = text_response + f"Linha {line[0]} -> {line[1]} - Status: {line[2]}\n"
+                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:* {line[2]}\n"
             else:
-                text_response = text_response + f"Linha {line[0]} -> {line[1]} - Status: {line[2]} Motivo: {line[3]}\n"
-        text_response = text_response + f"Data de atualização: {response_list[-1:][0]}"
+                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:* {line[2]}\n*Motivo:* {line[3]}\n"
+        text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
+        
         return text_response
+
 
     def create_response_one_line(self, response_list, line):
         text_response = ""
         for line_response in response_list[:-1]:
             if line.capitalize() in line_response:
                 if not line_response[3]:
-                    text_response = text_response + f"Linha {line_response[0]} -> {line_response[1]} - Status: {line_response[2]}\n"
+                    text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:* {line_response[2]}\n"
                 else:
-                    text_response = text_response + f"Linha {line_response[0]} -> {line_response[1]} - Status: {line_response[2]} Motivo: {line[3]}\n"
-        
+                    text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:* {line_response[2]}\n*Motivo:* {line[3]}\n"
+        text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
+
         return text_response
+    
+
+    def format_update_date(self, date):
+        date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S")
+        formatted_date = date.strftime("%d/%m/%Y - %H:%M")
+
+        return formatted_date
+
+
 
 
 
