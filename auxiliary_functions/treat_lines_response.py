@@ -27,9 +27,9 @@ class TreatLinesResponse:
         text_response = ""
         for line in response_list[:-1]:
             if not line[3]:
-                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:* {line[2]}\n"
+                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n✅ {line[2]}\n\n"
             else:
-                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:* {line[2]}\n*Motivo:* {line[3]}\n"
+                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n❌ {line[2]}\n*Motivo:* {line[3]}\n\n"
         text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
         
         return text_response
@@ -40,9 +40,9 @@ class TreatLinesResponse:
         for line_response in response_list[:-1]:
             if line.capitalize() in line_response:
                 if not line_response[3]:
-                    text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:* {line_response[2]}\n"
+                    text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:*\n✅ {line_response[2]}\n"
                 else:
-                    text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:* {line_response[2]}\n*Motivo:* {line[3]}\n"
+                    text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:*\n❌ {line_response[2]}\n*Motivo:* {line[3]}\n"
         text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
 
         return text_response
