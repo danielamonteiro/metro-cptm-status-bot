@@ -28,6 +28,8 @@ class TreatLinesResponse:
         for line in response_list[:-1]:
             if not line[3]:
                 text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n✅ {line[2]}\n\n"
+                if line[2] in ["Operações Encerradas", "Operação Encerrada"]: 
+                    text_response = text_response.replace("✅", "❌")
             else:
                 text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n❌ {line[2]}\n*Motivo:* {line[3]}\n\n"
         text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
@@ -41,6 +43,8 @@ class TreatLinesResponse:
             if line.capitalize() in line_response:
                 if not line_response[3]:
                     text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:*\n✅ {line_response[2]}\n"
+                    if line_response[2] in ["Operações Encerradas", "Operação Encerrada"]:
+                        text_response = text_response.replace("✅", "❌")
                 else:
                     text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:*\n❌ {line_response[2]}\n*Motivo:* {line[3]}\n"
         text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"

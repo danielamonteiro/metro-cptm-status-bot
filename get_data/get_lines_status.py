@@ -18,6 +18,7 @@ class AllLinesStatus:
             all_lines_status_code = all_lines_response.status_code
             all_lines_status = json.loads(all_lines_response.text)
             logging.info(f"Line Status Code Return: [{all_lines_status_code}]")
+            logging.info(f"Line Status Response: {all_lines_status}")
             #TODO: implementar consulta nos outros endpoints quando der erro na consulta
         except Exception as line_status_exception:
             logging.info(f"Exception consulting Line Status Service: {line_status_exception}")
