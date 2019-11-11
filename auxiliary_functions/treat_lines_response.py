@@ -11,28 +11,33 @@ class TreatLinesResponse:
     
     def create_lines_status_list(self, status_response):
         response_list = []
-        for line in status_response:
-            line_name = line['Nome'].capitalize()
-            line_number = line['LinhaId']
-            line_status = line['Status']
-            line_description = line['Descricao']
-            response_list.append([line_number, line_name, line_status, line_description])
-        date = self.format_update_date(status_response[-1:][0]['DataGeracao'])
-        response_list.append(date)
-
+        try:
+            for line in status_response:
+                line_name = line['Nome'].capitalize()
+                line_number = line['LinhaId']
+                line_status = line['Status']
+                line_description = line['Descricao']
+                response_list.append([line_number, line_name, line_status, line_description])
+            date = self.format_update_date(status_response[-1:][0]['DataGeracao'])
+            response_list.append(date)
+        except:
+            response_list = "Error to generage response list"
         return response_list
 
     
     def create_response_all_lines(self, response_list):
-        text_response = ""
-        for line in response_list[:-1]:
-            if not line[3]:
-                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n✅ {line[2]}\n\n"
-                if line[2] in ["Operações Encerradas", "Operação Encerrada"]: 
-                    text_response = text_response.replace("✅", "❌")
-            else:
-                text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n❌ {line[2]}\n*Motivo:* {line[3]}\n\n"
-        text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
+        try:
+            text_response = ""
+            for line in response_list[:-1]:
+                if not line[3]:
+                    text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n✅ {line[2]}\n\n"
+                    if line[2] in ["Operações Encerradas", "Operação Encerrada"]: 
+                        text_response = text_response.replace("✅", "❌")
+                else:
+                    text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n❌ {line[2]}\n*Motivo:* {line[3]}\n\n"
+            text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
+        except:
+            text_response = "Hey, desculpe, eu tive um probleminha para acessar o serviço que me traz o status da linhas. 😥\nPor favor, envie o comando novamente para que eu possa tentar mais uma vez. Juro que não foi minha culpa."
         
         return text_response
 
@@ -47,7 +52,11 @@ class TreatLinesResponse:
                         text_response = text_response.replace("✅", "❌")
                 else:
                     text_response = text_response + f"*Linha {line_response[0]} - {line_response[1]}*\n*Status:*\n❌ {line_response[2]}\n*Motivo:* {line_response[3]}\n"
-        text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"
+        if text_response:
+            text_response = text_response + f"\n_Data de atualização: \n{response_list[-1:][0]}_"    
+        else:
+            text_response = "Hey, desculpe, eu tive um probleminha para acessar o serviço que me traz o status da linha solicitada. 😥\nPor favor, envie o comando novamente para que eu possa tentar mais uma vez. Juro que não foi minha culpa."
+              
 
         return text_response
     
