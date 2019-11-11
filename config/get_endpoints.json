@@ -1,4 +1,0 @@
-{
-    "sp_line_status_opt1": "http://apps.cptm.sp.gov.br:8080/AppMobileService/api/LinhasMetropolitanasAppV3?versao=4",
-    "description": "Return infos about all lines (metro and train)"
-}
