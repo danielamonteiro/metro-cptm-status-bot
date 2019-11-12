@@ -7,7 +7,7 @@ from logging.config import fileConfig
 
 def check_config_file():
     base_path = os.path.abspath(os.path.dirname(__file__))
-    log_file_config = base_path + "\logging.conf"
+    log_file_config = base_path + "/logging.conf"
     config = configparser.ConfigParser()
     config.read(log_file_config)
     log_file_name = config.get('handler_file_handler', 'args')
