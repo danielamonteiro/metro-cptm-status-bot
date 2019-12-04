@@ -31,7 +31,7 @@ class TreatLinesResponse:
             for line in response_list[:-1]:
                 if not line[3]:
                     text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n✅ {line[2]}\n\n"
-                    if line[2] in ["Operações Encerradas", "Operação Encerrada"]: 
+                    if line[2] in ["Operações Encerradas", "Operação Encerrada", "Operação Parcial"]: 
                         text_response = text_response.replace("✅", "❌")
                 else:
                     text_response = text_response + f"*Linha {line[0]} - {line[1]}*\n*Status:*\n❌ {line[2]}\n*Motivo:* {line[3]}\n\n"
