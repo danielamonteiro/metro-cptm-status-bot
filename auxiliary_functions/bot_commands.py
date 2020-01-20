@@ -18,6 +18,9 @@ class BotCommands:
                                             'esmeralda', 'turquesa', 'coral', 'safira', 'jade'], bot_functions.one_line)
         bot_dispatcher.add_handler(one_line_handler)
 
+        map_file_handler = CommandHandler('mapa', bot_functions.send_map_file)
+        bot_dispatcher.add_handler(map_file_handler)
+
         unknown_handler = MessageHandler(Filters.command, bot_functions.unknown)
         bot_dispatcher.add_handler(unknown_handler)
 
